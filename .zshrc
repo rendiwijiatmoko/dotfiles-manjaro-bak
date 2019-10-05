@@ -94,7 +94,11 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
+# Example aliase
+alias zshconfig="vim ~/.zshrc"
+if type nvim > /dev/null 2>&1; then
+  alias vim='nvim'
+fi
+
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source /home/xavartun/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
