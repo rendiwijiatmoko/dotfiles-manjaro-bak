@@ -30,7 +30,7 @@ bindsym $mod+n border normal
 font pango:Noto Sans 12
 
 # start a terminal
-bindsym $mod+Return exec st
+bindsym $mod+Return exec --no-startup-id st
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -95,7 +95,7 @@ bindsym $mod+F4 exec st -e 'bmenu' floating enable border normal
 
 bindsym $mod+d exec --no-startup-id rofi -show drun -opacity 80 -display-drun " " -theme dxv
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
-bindsym $mod+Shift+w exec google-chrome-stable
+bindsym $mod+Shift+w exec firefox
 bindsym $mod+t exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+t exec --no-startup-id compton -b
 
