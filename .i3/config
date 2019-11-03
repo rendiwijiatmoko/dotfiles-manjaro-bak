@@ -92,10 +92,11 @@ bindsym $mod+F3 exec pcmanfm
 bindsym $mod+Shift+F3 exec gksu pcmanfm
 bindsym $mod+F5 exec st -e 'mocp'
 bindsym $mod+F4 exec st -e 'bmenu' floating enable border normal
+bindsym $mod+F6 exec scrcpy
 
-bindsym $mod+d exec --no-startup-id rofi -show drun -opacity 80 -display-drun " " -theme dxv
+bindsym $mod+d exec --no-startup-id rofi -show drun -opacity 80 -display-drun " " 
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
-bindsym $mod+Shift+w exec firefox
+bindsym $mod+Shift+w exec google-chrome-stable
 bindsym $mod+t exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+t exec --no-startup-id compton -b
 
@@ -140,17 +141,17 @@ bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 # split orientation
-bindsym $mod+z split h;exec notify-send 'tile horizontally'
-bindsym $mod+v split v;exec notify-send 'tile vertically'
+bindsym $mod+backslash split h;exec notify-send 'tile horizontally'
+bindsym $mod+slash split v;exec notify-send 'tile vertically'
 bindsym $mod+q split toggle
 
 # toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+s layout stacking;exec notify-send 'stacking mode'
+bindsym $mod+w layout tabbed;exec notify-send 'tabbed mode'
+bindsym $mod+e layout toggle split;exec notify-send 'split mode'
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
