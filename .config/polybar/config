@@ -1,0 +1,493 @@
+;==========================================================|
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗    
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗   
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝   
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗   
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║   
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   
+;
+;   CREATED BY RENDI WIJIATMOKO                                                             
+;==========================================================|
+
+;==========================================================
+; COLORS | Warna Dasar
+;==========================================================
+[colors]
+background = #14161B
+background-alt = #444
+
+foreground = #dfdfdf
+foreground-alt = #555
+
+primary = #3498DB
+secondary = #e60053
+warning = #D75F00
+alert = #bd2c40
+
+
+;==========================================================
+; POLYBAR
+;==========================================================
+[bar/xavartun]
+;monitor = ${env:MONITOR:HDMI-1}
+width = 100%
+height = 30
+offset-x = 1%
+offset-y = 1%
+radius = 0
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+border-size = 0
+border-color = #00000000
+
+padding-left = 0
+padding-right = 4
+
+module-margin-left = 1
+module-margin-right = 2
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+
+;==========================================================
+; FONT
+;==========================================================
+font-0 = fixed:pixelsize=10;1
+font-1 = unifont:fontformat=truetype:size=12:antialias=false;0
+font-2 = Font Awesome 5 Free Regular:size=12;1
+font-3 = Font Awesome 5 Free Solid:size=12;1
+font-4 = Font Awesome 5 Brands Regular:size=12;1
+
+
+
+;==========================================================
+; LOKASI MODULE
+;==========================================================
+modules-left = i3 title
+modules-center = mpd
+modules-right = caps netspdwlan wlan eth sp xbacklight pulseaudio  memory temperature battery date
+
+
+;==========================================================
+;==========================================================
+; MODULE
+;==========================================================
+;==========================================================
+
+;----------------------------------------------------------
+; i3wm
+;----------------------------------------------------------
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+pin-workspaces = true
+enable-click = true
+
+label-mode = %mode%
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+label-focused-underline = ${colors.primary}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused =%index%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+label-empty = %index%
+; Separator in between workspaces
+;label-separator = |
+
+
+;----------------------------------------------------------
+; Window Title
+;----------------------------------------------------------
+[module/title]
+type = internal/xwindow
+
+format = <label>
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+format-padding = 0
+
+label = %title%
+label-maxlen = 50
+
+label-empty = 
+label-empty-foreground = #707880
+
+;----------------------------------------------------------
+; MPD
+;----------------------------------------------------------
+[module/mpd]
+type = internal/mpd
+interval = 2
+format-online = <label-song> <icon-prev> <icon-stop> <toggle> <icon-next>
+label-song = 𝄞 %artist% - %title%
+icon-play = ⏵
+icon-pause = ⏸
+icon-stop = ⏹
+icon-prev = ⏮
+icon-next = ⏭
+icon-seekb = ⏪
+icon-seekf = ⏩
+icon-random = 🔀
+icon-repeat = 🔁
+icon-repeatone = 🔂
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+;----------------------------------------------------------
+; CAPS
+;----------------------------------------------------------
+[module/caps]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+
+format = <label-indicator>
+format-spacing = 0
+
+format-prefix = ""
+format-prefix-padding = 2
+format-prefix-foreground = ${colors.alert}
+format-prefix-background = ${colors.background}
+;format-prefix-underline = ${colors.primary}
+
+label-layout = "%layout%"
+label-layout-foreground = ${colors.foreground}
+label-layout-background = ${colors.background}
+
+label-indicator-padding = 2
+label-indicator-margin = 0
+label-indicator ="CAPS"
+label-indicator-foreground = ${colors.alert}
+label-indicator-background = ${colors.background}
+;label-indicator-underline = ${colors.primary}
+
+
+;----------------------------------------------------------
+; Network(wireless LAN) 
+;----------------------------------------------------------
+[module/netspdwlan]
+type = internal/network
+interface = wlp1s0
+interval = 1.0
+format-connected = "<label-connected>"
+label-connected = " %downspeed:3%   %upspeed:3%"
+label-connected-foreground = ${colors.foreground}
+label-connected-background = ${colors.background}
+
+;----------------------------------------------------------
+[module/wlan]
+type = internal/network
+interface = wlp1s0
+interval = 1.0
+
+format-connected = "<ramp-signal> <label-connected>"
+label-connected = " %essid:0:10:% "
+label-connected-foreground = ${colors.foreground}
+label-connected-background = ${colors.background}
+
+format-disconnected = <label-disconnected>
+label-disconnected = " OFFLINE "
+label-disconnected-foreground = ${colors.foreground}
+
+ramp-signal-0 = 0
+ramp-signal-1 = 1
+ramp-signal-2 = 2
+ramp-signal-3 = 3
+ramp-signal-foreground = ${colors.foreground}
+ramp-signal-background = ${colors.background}
+
+;----------------------------------------------------------
+; Network(Wired LAN)
+;----------------------------------------------------------
+[module/netspdeth]
+type = internal/network
+interface = enp0s31f6
+interval = 1.0
+format-connected = "<label-connected>"
+label-connected = " %downspeed:3%  %upspeed:3% |"
+label-connected-foreground = ${colors.foreground}
+label-connected-background = ${colors.background}
+
+;----------------------------------------------------------
+[module/eth]
+type = internal/network
+interface = enp0s31f6
+interval = 1.0
+
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground}
+format-connected-prefix-background = ${colors.background}
+label-connected = " %local_ip% "
+
+;format-disconnected = <label-disconnected>
+;label-disconnected =  %ifname%
+;label-disconnected-foreground = ${colors.foreground}
+
+
+;----------------------------------------------------------
+; Backlight
+;----------------------------------------------------------
+[module/xbacklight]
+type = internal/xbacklight
+
+format ="<ramp> <label>"
+;format = "<label>"
+label = "%percentage%%" 
+label-foreground = ${colors.foreground}
+label-background = ${colors.background}
+
+; Only applies if <ramp> is used
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-foreground = ${colors.foreground-alt}
+
+
+; Only applies if <bar> is used
+bar-width = 10
+bar-indicator = |
+bar-fill = ─
+bar-empty = ─
+
+
+;----------------------------------------------------------
+; Volume Icon
+;----------------------------------------------------------
+[module/pulseaudio]
+type = internal/pulseaudio
+
+sink = alsa_output.pci-0000_12_00.3.analog-stereo
+
+use-ui-max = true
+
+interval = 5
+
+format-volume = <ramp-volume> <label-volume>
+
+label-muted =  MUTED
+label-muted-foreground = ${colors.alert}
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-foreground = ${colors.foreground-alt}
+
+
+;----------------------------------------------------------
+; Memory
+;----------------------------------------------------------
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+;format-underline = #4bffdc
+label = %percentage_used%%
+
+
+;----------------------------------------------------------
+; CPU
+;----------------------------------------------------------
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+;format-underline = #f90000
+label = %percentage:2%%
+
+
+;----------------------------------------------------------
+; Temperature
+;----------------------------------------------------------
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 80
+
+format = "<ramp><label>"
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+label = "%temperature-c%"
+label-foreground = ${colors.foreground}
+label-background = ${colors.background}
+
+format-warn = <ramp><label-warn>
+label-warn = "%temperature-c%"
+label-warn-foreground = ${colors.alert}
+
+ramp-0 = " "
+ramp-1 = " "
+ramp-2 = " "
+ramp-3 = " "
+ramp-4 = " "
+ramp-foreground = ${colors.foreground-alt}
+ramp-background = ${colors.background}
+
+
+;----------------------------------------------------------
+; Battery
+;----------------------------------------------------------
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 90
+
+format-charging = "<animation-charging><label-charging>"
+;format-charging-underline = ${colors.foreground}
+label-charging-foreground = ${colors.foreground}
+label-charging-background = ${colors.background}
+
+format-discharging = "<ramp-capacity><label-discharging>"
+;format-discharging-underline = ${self.format-charging-underline}
+label-discharging-foreground = ${colors.foreground}
+label-discharging-background = ${colors.background}
+
+format-full-prefix = "  "
+format-full-prefix-foreground = ${colors.foreground}
+format-full-prefix-background = ${colors.background}
+format-full-underline = ${colors.foreground}
+
+ramp-capacity-0 = "  "
+ramp-capacity-0-foreground = ${colors.alert}
+ramp-capacity-1 = "  "
+ramp-capacity-1-foreground = ${colors.warning}
+ramp-capacity-2 = "  "
+ramp-capacity-3 = "  "
+ramp-capacity-foreground = ${colors.foreground}
+ramp-capacity-background = ${colors.background}
+
+animation-charging-0 = "  "
+animation-charging-1 = "  "
+animation-charging-2 = "  "
+animation-charging-3 = "  "
+animation-charging-foreground = ${colors.foreground}
+animation-charging-background = ${colors.background}
+animation-charging-framerate = 750
+
+
+;----------------------------------------------------------
+; Date
+;----------------------------------------------------------
+[module/date]
+type = internal/date
+interval = 1
+
+date = 
+date-alt = "%a %Y-%m-%d"
+
+time = "%H:%M"
+time-alt = " %H:%M"
+
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-background = ${colors.background}
+
+label = %date% %time%
+label-foreground = ${colors.foreground}
+label-background = ${colors.background}
+
+;----------------------------------------------------------
+; Power Menu
+;----------------------------------------------------------
+[module/power]
+type = custom/menu
+expand-right = true
+format-spacing = 1
+
+label-open = 
+label-open-foreground = ${colors.alert}
+label-close =  close
+label-close-foreground = ${colors.secondary}
+label-separator = "  "
+label-separator-foreground = #D75F00
+
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = i3exit reboot
+
+menu-2-0 = power off
+menu-2-0-exec = i3exit shutdown
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+
+;----------------------------------------------------------
+; Pembatas
+;----------------------------------------------------------
+[module/sp]
+type = custom/text
+content = " | "
+;content = "  "
+content-foreground = ${colors.primary}
+content-background = ${colors.background}
+
+
+;----------------------------------------------------------
+; Text
+;----------------------------------------------------------
+[module/profile]
+type = custom/text
+content = "%{T3}%{T-} XAVARTUN"
+content-foreground = ${colors.primary}
+content-background = ${colors.background}
+
+
+;==========================================================
+; SETTINGS
+;==========================================================
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = source
+;compositing-foreground = over
+;compositing-border = over
+pseudo-transparency = false
+
+
+
+;==========================================================
+; GLOBAL WM
+;==========================================================
+[global/wm]
+margin-top = 0
+margin-bottom = 0
