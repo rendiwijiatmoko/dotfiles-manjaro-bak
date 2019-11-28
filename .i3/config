@@ -2,6 +2,7 @@
 #
 # i3 config file 
 # created by Rendi Wijiatmoko
+# https://github.com/rendiwijiatmoko
 #
 ################################################################################################
 
@@ -21,9 +22,10 @@ new_float normal
 hide_edge_borders none
 
 # change borders
-bindsym $mod+u border none
-bindsym $mod+y border pixel 1
-bindsym $mod+n border normal
+bindsym $mod+u border none; exec notify-send 'None border'
+bindsym $mod+y border pixel 1; exec notify-send '1px Border'
+bindsym $mod+n border normal; exec notify-send 'Normal'
+
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -86,13 +88,13 @@ bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness 
 # Start Applications
 #------------------------------
 
-bindsym $mod+F1 exec --no-startup-id networkmanager_dmenu
 bindsym $mod+F2 exec st -e 'ranger'
 bindsym $mod+F3 exec pcmanfm
 bindsym $mod+Shift+F3 exec gksu pcmanfm
 bindsym $mod+F5 exec st -e 'mocp'
 bindsym $mod+F4 exec st -e 'bmenu' floating enable border normal
 bindsym $mod+F6 exec scrcpy
+bindsym $mod+F7 exec mono /opt/SM/Screenshot\ Monitor.exe
 
 bindsym $mod+d exec --no-startup-id rofi -show drun -opacity 80 -display-drun " " 
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
@@ -141,16 +143,16 @@ bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 # split orientation
-bindsym $mod+backslash split h;exec notify-send 'tile horizontally'
-bindsym $mod+slash split v;exec notify-send 'tile vertically'
-bindsym $mod+q split toggle
+bindsym $mod+backslash split h;exec notify-send 'Tile horizontally'
+bindsym $mod+slash split v;exec notify-send 'Tile vertically'
+bindsym $mod+q split toggle; exec notify-send 'Split toggle'
 
 # toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking;exec notify-send 'stacking mode'
-bindsym $mod+w layout tabbed;exec notify-send 'tabbed mode'
+bindsym $mod+s layout stacking exec notify-send 'stacking mode'
+bindsym $mod+w layout tabbed exec notify-send 'tabbed mode'
 bindsym $mod+e layout toggle split;exec notify-send 'split mode'
 
 # toggle tiling / floating
@@ -166,11 +168,11 @@ bindsym $mod+Shift+s sticky toggle
 bindsym $mod+a focus parent
 
 # move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+Shift+minus move scratchpad; exec notify-send 'Scratchpad hide'
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+minus scratchpad show
+bindsym $mod+minus scratchpad show; exec notify-send 'Scratchpad show'
 
 # Resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
