@@ -1,4 +1,4 @@
-PROMPT='%(?:%{$fg[blue]%} > :%{$fg_bold[red]%} 404 )'
+PROMPT='%(?:%{$fg[blue]%} 200| :%{$fg_bold[red]%} 404| )'
 
 RPROMPT='%{$fg[magenta]%}%c$(git_prompt_info)%{$reset_color%} $(git_prompt_status)%{$reset_color%}'
 
